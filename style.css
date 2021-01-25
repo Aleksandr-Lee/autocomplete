@@ -1,0 +1,59 @@
+* html {
+  margin: 100px auto;
+  box-sizing: border-box;
+}
+
+*,
+*::after,
+*::before {
+  box-sizing: inherit;
+}
+body {
+  margin: 0;
+}
+.container {
+  width: 661px;
+  height: 763px;
+  background: #c4c4c4;
+}
+
+.search__input {
+  width: 500px;
+  height: 61px;
+  margin: 62px 84px 0 77px;
+  font-family: Roboto;
+  font-size: 30px;
+}
+.result {
+  width: 500px;
+  height: 44px;
+  margin: 0 0 0 77px;
+  background: #e3e3e3;
+  border: 2px solid #000000;
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 30px;
+  line-height: 35px;
+  color: #000000;
+  cursor: pointer;
+}
+.result:hover {
+  background: #65cdf9;
+}
+.card__wrapper {
+  width: 503px;
+  height: 101px;
+  background: #e27beb;
+  border: 1px solid #000000;
+  margin: 62px 84px 0 77px;
+}
+.card__item {
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 24px;
+  line-height: 28px;
+  color: #000000;
+  margin: 0px 0 0 16px;
+}
