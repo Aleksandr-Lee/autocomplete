@@ -1,27 +1,25 @@
 let input = document.querySelector(".search__input");
-let div = document.querySelector(".search__wrapper");
+let divSearch = document.querySelector(".search__wrapper");
 let divCard = document.querySelector(".card__wrapper");
+
 const debounce = (fn, ms) => {
   let timeout;
   return function () {
-    const fnCall = () => {
-      fn.apply(this, arguments);
-    };
+    const fnCall = () => fn.apply(this, arguments);
     clearTimeout(timeout);
     timeout = setTimeout(fnCall, ms);
   };
 };
 function change() {
-  getRepositories(input.value).then((data) => {
-    console.log(data);
-  });
+  getRepositories(input.value);
 }
-
-changeDebounce = debounce(change, 500);
-input.addEventListener("input", changeDebounce);
+input.addEventListener("input", debounce(change, 500));
 
 async function getRepositories(login) {
-  if (login === "") return;
+  if (login === "") {
+    divSearch.innerHTML = "";
+    return;
+  }
   let response = await fetch(
     `https://api.github.com/search/repositories?q=${login}`
   );
@@ -32,75 +30,39 @@ async function getRepositories(login) {
 }
 
 function searchResults(res) {
-  div.innerHTML = "";
-  res.forEach((element) => {
-	  div.insertAdjacentHTML('beforeend', `<div class="result">${element.name}</div>`)
-   //  div.innerHTML += `
-	// 	 <div class="result">${element.name}</div>`;
-  });
-  div.addEventListener("click", function (e) {
-    input.value = "";
-    div.innerHTML = "";
-    res.forEach((element) => {
-      divCard.innerHTML += `
-			         <p class="card__item card__name">Name: ${element.name}</p>
-						<p class="card__item card__owner">Owner: ${element.owner.login}</p>
-						<p class="card__item card__stars">Stars: ${element.stargazers_count}</p>
-			`;
-	 });
+  divSearch.innerHTML = "";
+  res.forEach((element, i) => {
+    let divRes = document.createElement("div");
+    divRes.classList.add("search__result");
+    divRes.textContent = element.name;
+    divRes.setAttribute("id", `${i}`);
+    divRes.addEventListener("click", (e) => {
+      input.value = "";
+      divSearch.innerHTML = "";
+      let divCardResult = document.createElement("div");
+      divCardResult.classList.add("card__result");
+      divCard.append(divCardResult);
+      divCardResult.insertAdjacentHTML(
+        "beforeend",
+        `<p class="card__item">Name: ${res[e.target.id].name}</p>`
+      );
+      divCardResult.insertAdjacentHTML(
+        "beforeend",
+        `<p class="card__item">Owner: ${res[e.target.id].owner.login}</p>`
+      );
+      divCardResult.insertAdjacentHTML(
+        "beforeend",
+        `<p class="card__item">Stars: ${res[e.target.id].stargazers_count}</p>`
+      );
+      let close = document.createElement("div");
+      close.classList.add("card__result_close");
+      divCardResult.append(close);
+      close.textContent = "+";
+      close.addEventListener("click", (e) => {
+        divCardResult.remove();
+      });
+    });
+    divSearch.append(divRes);
   });
 }
-// function activ(elem) {
-// 	console.log(elem)
-// }
-// div.addEventListener("click", function (e)  {
-// 	// console.log( input.value);
-// 	input.value = "";
-// 	div.innerHTML = "";
-// 	// activ(e)
-//    // console.log(e.target);
-//    // for (let key of res) {
-//   	//  console.log(key)
 
-//    // }
-//  });
-// let html = 	`<p class="card__item card__name">Name: ${data[0].name}</p>
-// 				<p class="card__item card__owner">Owner: ${data[0].owner.login}</p>
-// 				<p class="card__item card__stars">Stars: ${data[0].stargazers_count}</p>
-// 	`;
-// data.forEach((element) => {
-
-// divCard.insertAdjacentHTML("beforeend", html)
-//   divCard.innerHTML = `
-// 	<p class="card__item card__name">Name: ${element.name}</p>
-// 				<p class="card__item card__owner">Owner: ${element.owner.login}</p>
-// 				<p class="card__item card__stars">Stars: ${element.stargazers_count}</p>
-// 	`;
-//  let html = `
-// 			<p class="card__item card__name">${element.name}</p>
-// 			<p class="card__item card__owner"></p>
-// 			<p class="card__item card__stars"></p>
-// 		`
-// 	 console.log(html)
-// });
-
-// div.addEventListener("click", (e) => {
-// 	console.log(e)
-//   input.value = "";
-//   div.innerHTML = "";
-
-// });
-
-// 	div.addEventListener("click", (e) => {
-// 		input.value = "";
-// 		div.innerHTML = "";
-
-// 		data.forEach((element) => {
-// 			let html = 	`<p class="card__item card__name">Name: ${element.name}</p>
-// 			<p class="card__item card__owner">Owner: ${element.owner.login}</p>
-// 			<p class="card__item card__stars">Stars: ${element.stargazers_count}</p>
-// `;
-// 			divCard.insertAdjacentHTML("beforeend", html)
-
-// 	 });
-//   });

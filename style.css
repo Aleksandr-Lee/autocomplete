@@ -1,59 +1,71 @@
 * html {
-  margin: 100px auto;
+  margin: 0, auto;
   box-sizing: border-box;
 }
-
 *,
 *::after,
 *::before {
   box-sizing: inherit;
 }
-body {
-  margin: 0;
-}
 .container {
+  margin-left: auto;
+  margin-right: auto;
+  padding: 10px;
   width: 661px;
-  height: 763px;
+  min-height: 763px;
   background: #c4c4c4;
 }
-
 .search__input {
+  box-sizing: border-box;
   width: 500px;
   height: 61px;
   margin: 62px 84px 0 77px;
   font-family: Roboto;
-  font-size: 30px;
+  padding-left: 10px;
+  font-size: 40px;
 }
-.result {
+.search__wrapper {
+  margin-bottom: 16px;
+}
+.search__result {
+  box-sizing: border-box;
   width: 500px;
   height: 44px;
-  margin: 0 0 0 77px;
+  margin-left: 77px;
   background: #e3e3e3;
   border: 2px solid #000000;
   font-family: Roboto;
-  font-style: normal;
-  font-weight: normal;
+  padding-left: 10px;
   font-size: 30px;
-  line-height: 35px;
-  color: #000000;
   cursor: pointer;
 }
-.result:hover {
+.search__result:hover {
   background: #65cdf9;
 }
 .card__wrapper {
-  width: 503px;
+  margin-left: 77px;
+}
+.card__result {
+  box-sizing: border-box;
+  position: relative;
+  width: 500px;
   height: 101px;
-  background: #e27beb;
-  border: 1px solid #000000;
-  margin: 62px 84px 0 77px;
+  padding: 5px;
+  background-color: #e27beb;
+  border: 1px solid black;
 }
 .card__item {
   font-family: Roboto;
-  font-style: normal;
-  font-weight: normal;
   font-size: 24px;
-  line-height: 28px;
   color: #000000;
-  margin: 0px 0 0 16px;
+  margin: 0 0 0 16px;
+}
+.card__result_close {
+  position: absolute;
+  color: red;
+  font-size: 120px;
+  right: 10px;
+  top: -20px;
+  transform: rotate(45deg);
+  cursor: pointer;
 }
