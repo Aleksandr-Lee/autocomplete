@@ -1,6 +1,6 @@
-let input = document.querySelector(".search__input");
-let divSearch = document.querySelector(".search__wrapper");
-let divCard = document.querySelector(".card__wrapper");
+const input = document.querySelector(".search__input");
+const divSearch = document.querySelector(".search__wrapper");
+const divCard = document.querySelector(".card__wrapper");
 
 const debounce = (fn, ms) => {
   let timeout;
@@ -32,32 +32,39 @@ async function getRepositories(login) {
 function searchResults(res) {
   divSearch.innerHTML = "";
   res.forEach((element, i) => {
-    let divRes = document.createElement("div");
+    const divRes = document.createElement("div");
+
     divRes.classList.add("search__result");
     divRes.textContent = element.name;
     divRes.setAttribute("id", `${i}`);
+
     divRes.addEventListener("click", (e) => {
       input.value = "";
       divSearch.innerHTML = "";
-      let divCardResult = document.createElement("div");
+      const divCardResult = document.createElement("div");
       divCardResult.classList.add("card__result");
       divCard.append(divCardResult);
+
       divCardResult.insertAdjacentHTML(
         "beforeend",
         `<p class="card__item">Name: ${res[e.target.id].name}</p>`
       );
+
       divCardResult.insertAdjacentHTML(
         "beforeend",
         `<p class="card__item">Owner: ${res[e.target.id].owner.login}</p>`
       );
+
       divCardResult.insertAdjacentHTML(
         "beforeend",
         `<p class="card__item">Stars: ${res[e.target.id].stargazers_count}</p>`
       );
-      let close = document.createElement("div");
+
+      const close = document.createElement("div");
       close.classList.add("card__result_close");
       divCardResult.append(close);
       close.textContent = "+";
+
       close.addEventListener("click", (e) => {
         divCardResult.remove();
       });
@@ -65,4 +72,3 @@ function searchResults(res) {
     divSearch.append(divRes);
   });
 }
-
